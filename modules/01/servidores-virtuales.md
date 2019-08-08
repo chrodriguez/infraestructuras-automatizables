@@ -1,9 +1,8 @@
 ## Servidores virtuales
 
-* Múltiples sistemas operativos y aplicaciones en un mismo servidor físico.
-* Maximiza el uso del servidor físico y minimiza la cantidad de servidores físicos.
-* Simplifica el aprovisionamiento de aplicaciones o servidores.
-* Según la herramienta de virtualización:
-	* Proveen APIs que simplifican tareas de automatización habituales en un datacenter.
-	* Manejo de pool de recursos dinámico.
+El protagonista en este tipo de virtualización es el **hypervisor**. 
 
+Un hypervisor es un programa responsable de administrar múltiples SOs (o múltiples instancias del mismos SO) en un único sistema de cómputo.
+
+Es responsable de gestionar el procesador, memoria y otros recursos del sistema
+según la demanda que cada OS _guest_ requiera.
