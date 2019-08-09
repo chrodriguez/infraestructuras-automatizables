@@ -1,5 +1,6 @@
 ## Servidores virtuales
 
+* Abstracción del hardware físico y dispositivos
 * Múltiples sistemas operativos y aplicaciones en un mismo servidor físico.
 * Maximiza el uso del servidor físico y minimiza la cantidad de servidores físicos.
 * Simplifica el aprovisionamiento de aplicaciones o servidores.
