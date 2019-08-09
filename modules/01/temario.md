@@ -1,8 +1,9 @@
 ## Tipo de Servidores
 
 * Servidores físicos
-* Servidores virtuales
+* Virtualización
 	* Tipos de virtualización
-* Servidores en la nube
-	* Clasificación de servicios en la nube
+	* Virtualización de sistemas
+* Cloud
+	* Clasificación de servicios en cloud
 

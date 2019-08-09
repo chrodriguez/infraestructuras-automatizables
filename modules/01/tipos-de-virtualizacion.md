@@ -1,8 +1,9 @@
-### Tipos de virtualización
+## Tipos de virtualización
 
-La virtualización se basa en el concepto de compartir los recursos denominado _particionamiento_.
-
-Las implementaciones de virtualización aplican en distintas capas del sistema:
-* A nivel de hardware.
-* A nivel del sistema operativo
-* A nivel de lenguajes
+* **Infraestructura:**
+	* Red: VPN, VLAN, virtualización de routers, forewalls, segmentos, direccionamiento IP, etc.
+	* Storage: LVM, RAID, NAS (NFS/CIFS), SAN (iSCSI)
+* **Servidores:** uno o más máquinas virtuales en un mismo servidor físico.
+	* Virtualización total
+	* Paravirtualización
+	* Virtualización del SO
