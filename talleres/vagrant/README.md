@@ -20,7 +20,6 @@ Este taller nos guiará en la aplicación del flujo de trabajo con [Vagrant](htt
    * [Aprovisionando](#aprovisionando)
 * [Configuración de la Red](#configuración-de-la-red)
    * [Redirección de puertos](#redirección-de-puertos)
-* [Compartir una VM con usuarios en Internet](#compartir-una-vm-con-usuarios-en-internet)
 
 
 ## Instalación de vagrant
@@ -322,29 +321,3 @@ Existen otros mecanismos de configuración de redes que pueden utilizarse
 siguiendo la [documentación de
 redes](https://www.vagrantup.com/docs/networking/).
 
-## Compartir una VM con usuarios en Internet
-
-Para poder compartir el acceso a nuestra VM, podemos utilizar un plugin de
-Vagrant llamado **vagrant-share**. El plugin utiliza el servicio de
-[ngrok](https://ngrok.com/). 
-
-> Es importante destacar que debe instalarse el binario de ngrok disponible
-> desde https://ngrok.com/download
-
-Los plugins en Vagrant se instalan con la directiva `vagrant plugin` de la
-siguiente forma:
-
-```
-vagrant plugin install vagrant-share
-```
-
-Una vez instalado, simplemente correr:
-
-```
-vagrant share
-```
-
-La salida del comando anterior nos dará una URL que se podrá compartir para que
-cualquiera pueda visualizar el contenido de nuestra VM.
-
-La sesión terminará presionando `Ctrl+C` del comando anterior.
