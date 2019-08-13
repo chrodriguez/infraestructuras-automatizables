@@ -165,7 +165,7 @@ Dado que nos es de gran utilidad disponer de todo un ambiente virtualizado que
 cumpla con las expectativas necesarias, para por ejemplo desarrollar con
 herramientas diversas, utilizar un editor por consola, no es de agrado para
 muchos desarrolladores. Para dar solución a este problema, Vagrant provee el
-conepto de **carpteas sincronizadas**.
+concepto de **carpteas sincronizadas**.
 
 Por defecto, Vagrant comparte la carpeta del proyecto completa dentro de la VM
 bajo el directorio `/vagrant`. 
@@ -175,7 +175,7 @@ conecta con el usuario `vagrant`, por lo que al conectarse, el usuario está
 parado en el directorio `/home/vagrant` que es **diferente** al directorio
 **sincronizado** `/vagrant`.
 
-La salida desde la VM al comado `ls /vagrant` mínimamente debería mostrar el
+La salida desde la VM al comando `ls /vagrant` mínimamente debería mostrar el
 `Vagrantfile`. Puede verificar que al crear un archivo en ese directorio aparece
 en la máquina anfitrión:
 
@@ -184,3 +184,119 @@ en la máquina anfitrión:
 * Desconectar de la VM: `Ctrl+D`
 * Verificar que en el directorio del proyecto aparece `foo`: `ls`
 
+### Otras carpetas sincronizadas
+
+Para sincronizar otras carpetas, Vagrant ofrece la opción `config.vm.synced_folder ORIGEN, DESTINO [, disabled: true]`. Por ejemplo:
+
+```ruby
+Vagrant.configure("2") do |config|
+  # other config here
+  config.vm.synced_folder "src/", "/srv/website", disabled: true
+end
+```
+
+El ejemplo anterior comparte la carpeta del proyecto `src/` dentro de la VM en
+`/srv/website`. El origen puede ser relativo o absoluto: si es relativo, es
+relativo al proyecto Vagrant. La carpeta destino será creada recursivamente si
+no existe y montará el directorio en nombre del usuario y grupo con el que hace
+ssh. Las carpetas padres del árbol serán propias del usuario root.
+
+## Aprovisionamiento
+
+Ya disponemos de una máquina virtual que monta en un directorio de nuestra
+máquina anfitrión los archivos que podemos editar desde nuestro editor
+preferido. La idea ahora es poder servir nuestra producción con un servidor web
+desde nuestra VM.
+
+Podríamos simplemente instalar un servidor web en nuestra VM y listo, pero otro
+integrante de nuestro equipo va a tener que repetir estos pasos _- que para
+ejemplos reales, seguramente no es tan simple como instalar un servidor web-_.
+Por ello, Vagrant ofrece soporte de _automatización del aprovisionamiento_, y de
+esta forma, automáticamente instalar aplicaciones cuando se inicia con `vagrant
+up` o fuerza el aprovisionamiento.
+
+Antes de proceder, podemos verificar que nuestra VM no tiene un servidor web
+instalado. Para ello accedemos a la VM usando `vagrant ssh` y verificamos:
+
+```
+curl localhost
+```
+
+El comando anterior debería dar error por no poder conectar con localhost:
+
+```
+curl: (7) Failed to connect to localhost port 80: Connection refuse
+```
+
+### ¿Cómo instalar un servidor web que exponga el contenido del proyecto?
+
+Debemos instalar apache, y poner como **DocumentRoot** el directorio `/vagrant`.
+Podemos hacer esto con el siguiente script:
+
+```bash
+#!/usr/bin/env bash
+
+apt update 
+apt install -y apache2
+if ! [ -L /var/www/html ]; then
+  rm -rf /var/www/html
+  ln -fs /vagrant /var/www/html
+fi
+```
+
+Creamos entonces un archivo llamado `bootstrap.sh` con el contenido anterior y
+luego configuramos en `Vagrantfile` las siguientes directivas:
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.provision :shell, path: "bootstrap.sh"
+end
+```
+
+La directiva `config.vm.provision` indica que se utilizará el script
+`bootstrap.sh` del directorio `/vagrant` para aprovisionar el ambiente.
+
+### Aprovisionando
+
+El aprovisionamiento se da en las siguientes situaciones:
+
+* Corriendo `vagrant provision` en una VM encendida
+* Corriendo `vagrant up` en una VM nunca creada
+* Corriendo `vagrant reload --provision` en una VM encendida
+
+Una vez aprovisionada la VM, podemos verificar si ahora podemos correr dentro de
+la VM:
+
+```
+curl localhost
+```
+
+## Configuración de la Red
+
+La VM nos permite editar archivos que son expuestos por un web server. Sin
+embargo, no es posible acceder al web server más que desde la consola. En esta
+sección veremos cómo es posible exponer servicios de la VM usando
+configuraciones de red que ofrece Vagrant.
+
+### Redirección de puertos
+
+Una de las opciones de configuración que ofrece Vagrant es la redirección de
+puertos. Esto permite mapear puertos de la máquina anfitrión con puertos de la
+VM.
+Veamos cómo exponer el puerto 80 de la VM en el puerto 9070:
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.network :forwarded_port, guest: 80, host: 9070
+end
+```
+
+Con `vagrant reload` los cambios serán tomados, y podremos entonces acceder con
+un navegador a la URL: http://localhost:9070.
+
+Existen otros mecanismos de configuración de redes que pueden utilizarse
+siguiendo la [documentación de
+redes](https://www.vagrantup.com/docs/networking/).
