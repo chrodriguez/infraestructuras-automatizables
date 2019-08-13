@@ -20,7 +20,7 @@ Este taller nos guiará en la aplicación del flujo de trabajo con [Vagrant](htt
    * [Aprovisionando](#aprovisionando)
 * [Configuración de la Red](#configuración-de-la-red)
    * [Redirección de puertos](#redirección-de-puertos)
-* [Compartir una VM con usuarios en Internet](compartir-una-vm-con-usuarios-en-internet)
+* [Compartir una VM con usuarios en Internet](#compartir-una-vm-con-usuarios-en-internet)
 
 
 ## Instalación de vagrant
