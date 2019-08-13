@@ -326,7 +326,10 @@ redes](https://www.vagrantup.com/docs/networking/).
 
 Para poder compartir el acceso a nuestra VM, podemos utilizar un plugin de
 Vagrant llamado **vagrant-share**. El plugin utiliza el servicio de
-[ngrok](https://ngrok.com/).
+[ngrok](https://ngrok.com/). 
+
+> Es importante destacar que debe instalarse el binario de ngrok disponible
+> desde https://ngrok.com/download
 
 Los plugins en Vagrant se instalan con la directiva `vagrant plugin` de la
 siguiente forma:
