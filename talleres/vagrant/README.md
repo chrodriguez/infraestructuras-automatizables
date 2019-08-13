@@ -2,6 +2,27 @@
 
 Este taller nos guiará en la aplicación del flujo de trabajo con [Vagrant](https://www.vagrantup.com/) de [HashiCorp](https://www.hashicorp.com/).
 
+## Temas
+
+* [Instalación de vagrant](#instalación-de-vagrant)
+   * [Verificando la instalación](#verificando-la-instalación)
+* [Gestión de un proyecto Vagrant](#gestión-de-un-proyecto-vagrant)
+* [Boxes](#boxes)
+   * [Instalación de nuevos boxes](#instalación-de-nuevos-boxes)
+   * [Listando los boxes instalados](#listando-los-boxes-instalados)
+   * [Usando un box](#usando-un-box)
+   * [Buscar boxes](#buscar-boxes)
+* [Iniciando y Conectando](#iniciando-y-conectando)
+* [Carpetas sincronizadas](#carpetas-sincronizadas)
+   * [Otras carpetas sincronizadas](#otras-carpetas-sincronizadas)
+* [Aprovisionamiento](#aprovisionamiento)
+   * [¿Cómo instalar un servidor web que exponga el contenido del proyecto?](#cómo-instalar-un-servidor-web-que-exponga-el-contenido-del-proyecto)
+   * [Aprovisionando](#aprovisionando)
+* [Configuración de la Red](#configuración-de-la-red)
+   * [Redirección de puertos](#redirección-de-puertos)
+* [Compartir una VM con usuarios en Internet](compartir-una-vm-con-usuarios-en-internet)
+
+
 ## Instalación de vagrant
 
 En caso de ya disponer instalado vagrant, avanzar a la siguiente sección.
@@ -300,3 +321,27 @@ un navegador a la URL: http://localhost:9070.
 Existen otros mecanismos de configuración de redes que pueden utilizarse
 siguiendo la [documentación de
 redes](https://www.vagrantup.com/docs/networking/).
+
+## Compartir una VM con usuarios en Internet
+
+Para poder compartir el acceso a nuestra VM, podemos utilizar un plugin de
+Vagrant llamado **vagrant-share**. El plugin utiliza el servicio de
+[ngrok](https://ngrok.com/).
+
+Los plugins en Vagrant se instalan con la directiva `vagrant plugin` de la
+siguiente forma:
+
+```
+vagrant plugin install vagrant-share
+```
+
+Una vez instalado, simplemente correr:
+
+```
+vagrant share
+```
+
+La salida del comando anterior nos dará una URL que se podrá compartir para que
+cualquiera pueda visualizar el contenido de nuestra VM.
+
+La sesión terminará presionando `Ctrl+C` del comando anterior.
