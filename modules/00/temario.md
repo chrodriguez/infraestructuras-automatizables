@@ -1,8 +1,9 @@
 ## Temario
 
 * Clasificación de la infraestructura
+* Cloud Computing
 * DevOps
-* Escalabilidad de servicios 
+* Escalabilidad
 * The Twelve-Factor App
 * Automatización
 * Docker

@@ -1,4 +1,4 @@
-### Clasificación de servicios CC
+### Clasificación de servicios de CC
 
 * **On premises:** es un servicio de CC hosteado en máquinas que pertenecen a un mismo cliente. El cliente ofrece a su empresa servicios privados de _SaaS, PaaS, IaaS_
 

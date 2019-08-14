@@ -1,9 +1,12 @@
 ## Tipo de Servidores
 
 * Servidores físicos
+	* Problemas
 * Virtualización
 	* Tipos de virtualización
-	* Virtualización de sistemas
-* Cloud
-	* Clasificación de servicios en cloud
+	* Servidores virtuales
+	* Hypervisores
+	* Virtualización total
+	* Paravirtualización
+	* Virtualización a nivel del SO
 

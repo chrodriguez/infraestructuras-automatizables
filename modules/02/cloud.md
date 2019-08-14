@@ -1,4 +1,4 @@
-## Cloud Computing
+## Características de CC
 
 * Diferencia marcada entre el negocio y las herramientas necesarias para el negocio _(Distribuir contenido multimedia es el negocio)_
 * Los clientes se enfocan en sus proyectos. Los proveedores de servicio se encargan del resto.
