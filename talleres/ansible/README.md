@@ -110,11 +110,11 @@ En los siguientes talleres, se podrá experimentar con estos comandos que
 permiten visualizar las principales características de ansible:
 
 * [Ejemplo de gestión remota de múltiples nodos](./01-remote-connection)
-* Ejemplo de playbook
+* [Ejemplo de playbook](./02-playbooks)
 
 
 ## TODO
-Analizar ansible-vault 
+Explicar un poco acerca de ansible-vault 
 
 Playbooks
 

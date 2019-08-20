@@ -8,12 +8,15 @@
     package:
       name: "{{ apache_pkg }}"
       state: latest
+  - name: sats site
+    stat: path=/etc/apache2/sites-enabled/000-default.conf
+    register: sitelink
   - name: enable rewrite module and remove default vhost on debian
     command: "{{ item }}"
     with_items:
       - a2enmod rewrite
       - a2dissite 000-default
-    when: ansible_os_family == 'Debian'
+    when: ansible_os_family == 'Debian' and sitelink.stat.islnk is defined and sitelink.stat.islnk
     notify:
     - restart apache
   - name: redirect rule configuration
