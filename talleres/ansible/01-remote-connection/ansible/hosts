@@ -4,22 +4,22 @@ all:
     ansible_ssh_user: vagrant
   hosts:
     node-01:
-      ansible_ssh_port: 2222
+      ansible_ssh_port: 2201
       ansible_ssh_private_key_file: ./.vagrant/machines/node-01/virtualbox/private_key
     node-02:
-      ansible_ssh_port: 2200
+      ansible_ssh_port: 2202
       ansible_ssh_private_key_file: ./.vagrant/machines/node-02/virtualbox/private_key
     node-03:
-      ansible_ssh_port: 2201
+      ansible_ssh_port: 2203
       ansible_ssh_private_key_file: ./.vagrant/machines/node-03/virtualbox/private_key
     node-04:
-      ansible_ssh_port: 2202
+      ansible_ssh_port: 2204
       ansible_ssh_private_key_file: ./.vagrant/machines/node-04/virtualbox/private_key
     node-05:
-      ansible_ssh_port: 2203
+      ansible_ssh_port: 2205
       ansible_ssh_private_key_file: ./.vagrant/machines/node-05/virtualbox/private_key
     node-06:
-      ansible_ssh_port: 2204
+      ansible_ssh_port: 2206
       ansible_ssh_private_key_file: ./.vagrant/machines/node-06/virtualbox/private_key
   children:
     pares:

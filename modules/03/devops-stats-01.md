@@ -3,7 +3,7 @@
 En el reporte DORA, las organizaciones se clasifican en:
 
 * Elite performers
-* High permormers
+* High performers
 * Medium performers
 * Low performers
 

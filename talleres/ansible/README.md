@@ -32,7 +32,7 @@ A continuación, se muestra la forma de instalar ansible en Ubuntu 18.04:
 Las únicas dependencias para poder trabajar con ansible son:
 
 * Python 3
-* virutalenv
+* virtualenv
 
 Instalamos las dependencias con:
 
@@ -80,7 +80,7 @@ ansible --version
 Ahora actualizamos a la ultima versión estable:
 
 ```
-pip3 install ansible
+pip3 install ansible --upgrade
 ```
 
 Verificamos nuevamente la versión:
