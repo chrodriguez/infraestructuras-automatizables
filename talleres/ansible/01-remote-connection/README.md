@@ -251,9 +251,9 @@ Relativo al inventario, es posible crear directorios:
 * `host_vars/`
 * `group_vars/`
 
->> Estos directorios se buscaran relativos cuando se usa `ansible-playbook` o,
->> con el resto de los comandos en el inventario salvo que se especifique el
->> argumento `--playbook-dir`
+> Estos directorios se buscaran relativos cuando se usa `ansible-playbook` o,
+> con el resto de los comandos en el inventario salvo que se especifique el
+> argumento `--playbook-dir`
 
 Dentro del directorio `group_vars/` se puede utilizar como nombre de los archivos, 
 los grupos, por ejemplo _all/ungrouped/pares/impares_, y dentro del directorio 
