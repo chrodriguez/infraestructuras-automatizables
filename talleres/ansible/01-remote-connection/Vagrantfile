@@ -13,4 +13,8 @@ Vagrant.configure("2") do |config|
       instance.vm.hostname = vmname
     end
   end
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 256
+    v.cpus = 1
+  end
 end

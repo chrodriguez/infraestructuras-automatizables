@@ -54,6 +54,9 @@ bash utils/vagrant-ssh-config-to-ansible > ansible/hosts (Luego examinarlo)
 Asumimos ya se instaló ansible de alguna de las formas explicadas en el apartado
 anterior, y en caso de utilizar ansible con virtualenv se haya cargado el mismo.
 
+Asegurar estar en directorio donde se encuentra el `Vagrantfile` y `ansible.cfg`
+para correr los siguientes comandos.
+
 ```
 ansible --version
 ```
@@ -72,6 +75,7 @@ ansible 2.8.4
 
 ### Probando ansible con ping
 
+Ping es un modulo de ansible que simplemente testea conectividad
 
 ```
 ansible -mping all
@@ -93,6 +97,10 @@ con:
 ansible all -a 'echo "Hola mundo desde $( hostname )"'
 ```
 
+> No especificar el módulo (el segundo ejemplo), implica usar el módulo
+> **command** que no admite el uso de variables o interpolación, como es el caso
+> de **shell**
+
 ### Uso de `ansible-console`
 
 Correr el comando: `ansible-console all` y luego, en la consola REPL, ejecutar:
@@ -101,89 +109,159 @@ Correr el comando: `ansible-console all` y luego, en la consola REPL, ejecutar:
 shell echo "Hola, la hora es $(date) en $(hostname)"
 ```
 
+> Probar además un comando como `date`
+
 ### Uso de `ansible-doc`
 
 Podemos verificar la documentación de los módulos siguientes con los siguientes
 comandos:
 
-* ansible-doc ping
-* ansible-doc shell
+```
+ansible-doc ping
+ansible-doc shell
+```
 
 ### Uso de `ansible-inventory`
 
-ansible-inventory --list | --graph
+Permite visualizar el inventario de diferentes formas:
 
-Mostrar como funca la concurrencia
-ansible -f1 vs ansible -f10 -a echo hola
+```
+ansible-inventory --list
+ansible-inventory --list -y
+ansible-inventory --graph
+```
 
-Mostrar que es posible (editando el hosts, comentando la variable que define que el usuario es vagrant)
+### Ejecución concurrente de tareas
 
-ansible -a whoami -u test|vagrant
+Es posible verificar la concurrencia de las tareas con la opción **-f**
 
-Mostrar el become
+```
+ansible all -f1 -a 'echo hola'
+ansible all -f10 -a 'echo hola'
+```
 
-ansible -a whoami all
-vs
-ansible -a whoami all --become
-vs 
-ansible -a whoami all --become --become-user nobody
+### El usuario con el que se conecta con ssh
 
-Copiar archivos desde la maq local a todas
+La configuración del inventario configura una variable global con el username
+del usuario de conexión. Vamos a comentar esta configuración editando el archivo `ansible/hosts`:
+
+```yaml
+all:
+  vars:
+    ansible_ssh_host: 127.0.0.1
+#    ansible_ssh_user: vagrant
+...
+```
+
+Luego, probar el siguiente comando:
+
+```
+ansible all -a whoami 
+```
+
+Como ya no configura el usuario vagrant, las conexiones deberían fallar.
+Ejecutamos entonces:
+
+```
+ansible all -a whoami -u vagrant
+```
+
+Los comandos se ejecutan con el usuario con el que se conecta, para convertirse
+en otro usuario:
+
+```
+ansible all -a whoami -b
+ansible all -a whoami --become --become-user nobody
+```
+
+### Transferencia de archivos
+
+Es posible copiar archivos desde la máquina de control a todos los equipos
+remotos:
+
+```
 ansible all -m copy -a 'src=/etc/hosts dest=/tmp/hosts'
+```
 
-verificamos con:
- ansible all -a "cat /tmp/hosts"
+Luego verificamos se han copiado:
 
-Crear un archivo con determinadas propiedades
+```
+ansible all -a "cat /tmp/hosts"
+```
 
+Podemos también crear un archivo con determinadas propiedades
+
+```
 ansible pares -m file -a "dest=/opt/prueba/uno/dos/tres/archivo mode=0760 owner=nobody group=users"
-
-vs
-
 ansible pares -m file -a "dest=/opt/prueba/uno/dos/tres/archivo mode=0760 owner=nobody group=users state=directory"
+```
 
-(necesidad de --become)
+> Notar que el último comando no funcionará porque requiere la opción **-b**
 
-Instalar un paquete
+### Instalar un paquete
 
+Existen módulos para diferentes distribuciones. Por ejemplo, para instalar con
+apt, es posible utilizar el siguiente comando:
+
+```
 ansible -m apt package=mosh node-01 --become
+```
 
-Desinsntalarlo
+Y luego para desinstalarlo:
 
+```
 ansible -m apt "package=mosh state=absent" node-01 --become
+```
 
-Crear/eliminar usuarios
+### Gestión de usuarios
 
+Es posible gestionar usuarios y grupos. El siguiente comando crea un usuario en
+los nodos pares:
+
+```
 ansible -m user -a 'name=juan group=nogroup' pares  --become
+```
+
+El siguiente comando elimina los usuarios creados y elimina su directorio HOME:
+
+```
 ansible -m user -a 'name=juan state=absent remove=true' all --become
+```
 
-Descubrimiento del entorno para programar
+### Descubrimiento del entorno
 
+Ansible provee un módulo llamado setup que ofrece una basta cantidad de datos
+propios del sistema donde corre. Estos valores son posibles de utilizar luego
+como variables que son inferidas por el subsistema:
+
+```
 ansible -m setup node-01
-
 ansible -m setup node-01 -a 'filter=*memtotal_mb'
 ansible -m setup all --tree /tmp/salida
+```
+
+> El último comando, deja en la carpeta salida, la información colectada de cada
+> nodo del inventario
 
 
-Uso de variables por host/grupos
+### Uso de variables por host/grupos
 
 Relativo al inventario, es posible crear directorios:
 
-host_vars/
-group_vars/
- 
->> estos dirs se buscaran relativos cuando se usa ansible-playbook o, con el resto de los comandos en el inventario salvo que se especifique el argumento --playbook-dir
+* `host_vars/`
+* `group_vars/`
 
-Y dentro de ellos archivos con los nombres de los grupos (all/ungrouped/pares/impares) y dentro de los hosts, nombre de los hosts. con esos archivos podemos crear variables de forma bien granular
+>> Estos directorios se buscaran relativos cuando se usa `ansible-playbook` o,
+>> con el resto de los comandos en el inventario salvo que se especifique el
+>> argumento `--playbook-dir`
 
-Mostrar el ejemplo y probar: 
+Dentro del directorio `group_vars/` se puede utilizar como nombre de los archivos, 
+los grupos, por ejemplo _all/ungrouped/pares/impares_, y dentro del directorio 
+`host_vars/` el  nombre de los archivos, los hosts.
+Con estos archivos podemos crear variables de forma granular. Observar el
+contenido de estos directorios, para así entender el siguiente ejemplo:
 
+```
 ansible -a 'echo Ejemplo de var {{ sample_var }}' all
-
-El merge de variables es:
-* all
-* padre
-* child
-* host
-
+```
 
