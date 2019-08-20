@@ -109,7 +109,7 @@ tareas. Los comandos más utilizados son:
 En los siguientes talleres, se podrá experimentar con estos comandos que
 permiten visualizar las principales características de ansible:
 
-* Ejemplo de gestión remota de múltiples nodos
+* [Ejemplo de gestión remota de múltiples nodos](./01-remote-connection)
 * Ejemplo de playbook
 
 
