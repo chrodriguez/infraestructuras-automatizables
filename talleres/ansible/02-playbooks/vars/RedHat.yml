@@ -1,0 +1,2 @@
+apache_pkg: httpd
+apache_conf_subdir: conf.d

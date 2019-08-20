@@ -1,6 +1,8 @@
 <html>
 <body>
-<h2>Apache instalado con Ansible</h2>
-Este servidor fue instalado usando ansible
+<h2>Apache instalado con Ansible en {{ ansible_distribution }} </h2>
+Este servidor fue instalado usando ansible y el paquete usado es <strong>{{ apache_pkg }}</strong>
+<br />
+Puede probar la regla de redirección accediendo a <strong>/redirect/ALGO-QUE-BUSCAR</strong>
 </body>
 </html>

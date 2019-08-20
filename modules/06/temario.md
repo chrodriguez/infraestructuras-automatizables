@@ -120,3 +120,5 @@ Antes de  empezar con esto, explicar el concepto de idempotencia, sobre todo par
 
 Ejemplo de como instalar apache 02-p[laybook
 Ansible lint: pip3 install ansible-lint
+
+Mostrar que el lint da error por usar latest

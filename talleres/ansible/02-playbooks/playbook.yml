@@ -1,27 +1,36 @@
 - hosts: webservers
-  vars:
-    http_port: 80
-    max_clients: 200
   become: yes
   tasks:
+  - name: load os dependant variables
+    include_vars:
+      file: "{{ ansible_os_family }}.yml"
   - name: ensure apache is at the latest version
     package:
-      name: apache2
+      name: "{{ apache_pkg }}"
       state: latest
-  - name: enable rewrite module
-    command: a2enmod rewrite
+  - name: enable rewrite module and remove default vhost on debian
+    command: "{{ item }}"
+    with_items:
+      - a2enmod rewrite
+      - a2dissite 000-default
+    when: ansible_os_family == 'Debian'
     notify:
     - restart apache
+  - name: redirect rule configuration
+    copy:
+      src: ./apache/redirect-custom.conf
+      dest: "/etc/{{ apache_pkg }}/{{ apache_conf_subdir }}/redirect-custom.conf"
   - name: write landing page
     template:
       src: ./apache/index.j2
       dest: /var/www/html/index.html
   - name: ensure apache is running
     service:
-      name: apache2
+      name: "{{ apache_pkg }}"
       state: started
   handlers:
     - name: restart apache
       service:
-        name: apache2
+        name: "{{ apache_pkg }}"
         state: restarted
+      listen: "redirect rule configuration"
