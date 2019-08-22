@@ -13,6 +13,8 @@
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/monokai.css">
 
+    <link rel="stylesheet" href="css/custom.css">
+
     <!-- Printing and PDF exports -->
     <script>
       var link = document.createElement( 'link' );
@@ -25,18 +27,63 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <!-- 00 Caratula y temas principales -->
-        <section data-external="modules/00/index.html"></section>
-        <!-- 01 Clasificación de la infraestructura -->
-        <section data-external="modules/01/index.html"></section>
-        <!-- 02 Cloud Computing -->
-        <section data-external="modules/02/index.html"></section>
-        <!-- 03 DevOps -->
-        <section data-external="modules/03/index.html"></section>
-        <!-- 04 Escalabilidad -->
-        <section data-external="modules/04/index.html"></section>
-        <!-- 05 The Twelve-Factor App -->
-        <section data-external="modules/05/index.html"></section>
+        <section>
+          <h3>Infraestructuras Automatizables</h3>
+          <p>
+          <small>
+            por <a href="mailto:fernando@info.unlp.edu.ar">Fernando G. Tinetti</a> &·
+            <a href="mailto:car@info.unlp.edu.ar">Christian A. Rodríguez</a>
+          </small>
+          </p>
+          <p style="font-size: smaller">
+          Universidad Nacional de La Plata - Facultad de Informática
+          </p>
+          <p style="font-size: large">
+            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+              <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Licencia Creative Commons Atribución 4.0 Internacional
+            </a>.
+          </p>
+        </section>
+          <section data-markdown="modules/temario.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- Clasificación de la infraestructura -->
+        <section>
+          <section data-markdown="modules/clasificacion-infraestructura.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- Cloud Computing -->
+        <section>
+          <section data-markdown="modules/cloud.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- DevOps -->
+        <section>
+          <section data-markdown="modules/devops.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- Escalabilidad -->
+        <section>
+          <section data-markdown="modules/escalabilidad.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- The Twelve-Factor App -->
+        <section>
+          <section data-markdown="modules/12factor.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
       </div>
     </div>
 
@@ -53,11 +100,6 @@
           { src: 'plugin/markdown/markdown.js' },
           { src: 'plugin/notes/notes.js', async: true },
           { src: 'plugin/highlight/highlight.js', async: true },
-          { src: 'node_modules/reveal_external/external/external.js',
-            condition: function() {
-              return !!document.querySelector( '[data-external],[data-external-replace]' );
-            }
-          }
         ]
       });
     </script>
