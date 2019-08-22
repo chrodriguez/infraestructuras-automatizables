@@ -20,7 +20,10 @@ Este taller nos guiará en la aplicación del flujo de trabajo con [Vagrant](htt
    * [Aprovisionando](#aprovisionando)
 * [Configuración de la Red](#configuración-de-la-red)
    * [Redirección de puertos](#redirección-de-puertos)
-
+* [Ambientes multi máquinas](#ambientes-multi-máquinas)
+   * [Ejemplo de dos vms declarativas](#ejemplo-de-dos-vms-declarativas)
+   * [Ejemplo de N vms usando código](#ejemplo-de-n-vms-usando-código)
+   * [Ejemplo con diferentes boxes](#ejemplo-con-diferentes-boxes)
 
 ## Instalación de vagrant
 
