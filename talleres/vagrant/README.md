@@ -321,3 +321,87 @@ Existen otros mecanismos de configuración de redes que pueden utilizarse
 siguiendo la [documentación de
 redes](https://www.vagrantup.com/docs/networking/).
 
+## Ambientes multi máquinas
+
+En vagrant es posible crear un `Vagrantfile` que defina y configure diferentes
+máquinas en el mismo archivo.
+
+### Ejemplo de dos vms declarativas
+
+El siguiente ejemplo instancia 2 vms:
+
+```ruby
+Vagrant.configure("2") do |config|
+
+  config.vm.define "vm-01" do |machine|
+    machine.vm.box = "ubuntu/bionic64"
+  end
+
+  config.vm.define "vm-02" do |machine|
+    machine.vm.box = "ubuntu/bionic64"
+  end
+end
+```
+
+Para conectar con alguna de las vms, debe utilizarse el nombre, por ejemplo:
+
+```
+vagrant ssh vm-01
+```
+
+### Ejemplo de N vms usando código
+
+El siguiente ejemplo arranca la cantidad de máquinas indicada por la variable de
+ambiente `VM_COUNT`. Si la misma no se setea, inicia 5 máquinas, todas con 256MB
+de memoria y una CPU:
+
+```ruby
+Vagrant.configure("2") do |config|
+  1.upto(Integer(ENV['VM_COUNT'] || 5)) do |number|
+    vmname = "node-#{"%02d" % number}"
+    config.vm.define vmname do |instance|
+      instance.vm.box = "ubuntu/bionic64"
+      instance.vm.hostname = vmname
+    end
+  end
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 256
+    v.cpus = 1
+  end
+end
+```
+
+Podemos probar la anterior arquitectura de la siguiente forma:
+
+```
+VM_COUNT=2 vagrant up
+```
+
+> Iniciará 2 vms
+
+```
+vagrant up
+```
+
+> Iniciará 5 vms
+
+### Ejemplo con diferentes boxes
+
+El siguiente ejemplo instancia dos vms, una con centos/7 y otra con
+ubuntu/bionic. Además indica el hostname de cada vm
+
+```ruby
+Vagrant.configure("2") do |config|
+
+  base_port = 8080
+  { 'centos/7' => 'centos-apache', 'ubuntu/bionic64' => 'ubuntu-apache' }.each do |box, hostname|
+    config.vm.define hostname do |machine|
+      machine.vm.box = box
+      machine.vm.hostname = hostname
+      machine.vm.network "forwarded_port", guest: 80, host: base_port
+      base_port+=1
+    end
+  end
+
+end
+```
