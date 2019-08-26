@@ -1,0 +1,5 @@
+- name: Enable httpd redhat
+  service:
+    name: httpd
+    enabled: yes
+    state: started
