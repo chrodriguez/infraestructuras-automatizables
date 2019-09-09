@@ -1,6 +1,6 @@
 # Implementación y rendimiento de Infraestructuras automatizables
 
-Este repositorio dispone de los fuentes del curso de postgrado dictado en la
+Este repositorio dispone de los fuentes del curso de **postgrado** dictado en la
 [Facultad de Informática de la UNLP](https://www.info.unlp.edu.ar/).
 
 Los fuentes se disponen en módulos separados cargados desde la carpeta
