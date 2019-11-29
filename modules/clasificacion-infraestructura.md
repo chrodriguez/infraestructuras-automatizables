@@ -52,7 +52,7 @@
 ## Tipos de virtualización
 
 * **Infraestructura:**
-	* Red: VPN, VLAN, virtualización de routers, forewalls, segmentos, direccionamiento IP, etc.
+	* Red: VPN, VLAN, virtualización de routers, firewalls, segmentos, direccionamiento IP, etc.
 	* Storage: LVM, RAID, NAS (NFS/CIFS), SAN (iSCSI)
 * **Servidores:** uno o más máquinas virtuales en un mismo servidor físico.
 	* Virtualización total
@@ -151,6 +151,6 @@ Clasificaciones del tipo de virtualización de un servidor
 
 * También conocida como _**contenerización**_
 * El SO instalado en el _host_ permite manejar múltiples espacios de usuario, procesos y recursos.
-* Existe un pequeño o inexistente overhead por utilizar el kernel del SO anfitrión para su ejecución.
+* Existe un ínfimo overhead por utilizar el kernel del SO anfitrión para su ejecución.
 * _**Ejemplos:** Oracle Solaris Zones / Docker / Linux LXC_
 
