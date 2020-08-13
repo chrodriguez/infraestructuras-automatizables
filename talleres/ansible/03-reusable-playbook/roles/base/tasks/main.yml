@@ -1,0 +1,22 @@
+- name: install epel release repo
+  package:
+    name: epel-release
+  when: ansible_facts['os_family']|lower == 'redhat'
+- name: enable universe repo
+  apt_repository:
+    repo: "{{ item }}"
+  loop:
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic universe"
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe"
+    - "deb http://security.ubuntu.com/ubuntu/ bionic-security universe"
+  when: ansible_distribution|lower == 'ubuntu'
+- name: install cowsay
+  package:
+    name: cowsay
+- name: run cowsay
+  shell: cowsay "Hello from ansible@{{ ansible_facts['os_family'] }}"
+  environment:
+    PATH: '{{ ansible_env.PATH }}:/usr/games'
+  register: mycowwords
+- name: print cow words
+  debug: msg="{{ mycowwords.stdout.split('\n') }}"
