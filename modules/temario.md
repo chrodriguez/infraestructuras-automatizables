@@ -2,7 +2,6 @@
 
 * Clasificación de la infraestructura
 * Cloud Computing
-* DevOps
 * Escalabilidad
 * The Twelve-Factor App
 * Automatización

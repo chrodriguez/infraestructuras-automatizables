@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Infraestructuras Automatizables</title>
+    <title>Aplicaciones pensadas para la nube</title>
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/serif.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/monokai.css">
@@ -28,15 +28,12 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <h3>Infraestructuras Automatizables</h3>
-          <p>
+          <h3>Aplicaciones pensadas para la nube</h3>
+            <a href="https://mikroways.net/"><img class="logo-ppal" src="./images/mikroways-blanco.svg" /></a>
           <small>
-            por <a href="mailto:fernando@info.unlp.edu.ar">Fernando G. Tinetti</a> &·
-            <a href="mailto:car@info.unlp.edu.ar">Christian A. Rodríguez</a>
+          <p>
+            <a href="mailto:christian.rodriguez@mikroways.net">Lic. Christian A. Rodríguez</a>
           </small>
-          </p>
-          <p style="font-size: smaller">
-          Universidad Nacional de La Plata - Facultad de Informática
           </p>
           <p style="font-size: large">
             <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
@@ -63,13 +60,6 @@
            data-charset="utf-8">
           </section>
         </section>
-        <!-- DevOps -->
-        <section>
-          <section data-markdown="modules/devops.md"
-           data-separator-notes="^Note:"
-           data-charset="utf-8">
-          </section>
-        </section>
         <!-- Escalabilidad -->
         <section>
           <section data-markdown="modules/escalabilidad.md"
@@ -80,6 +70,19 @@
         <!-- The Twelve-Factor App -->
         <section>
           <section data-markdown="modules/12factor.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <!-- The Twelve-Factor App -->
+        <section>
+          <section data-markdown="modules/apis.md"
+           data-separator-notes="^Note:"
+           data-charset="utf-8">
+          </section>
+        </section>
+        <section>
+          <section data-markdown="modules/herramientas.md"
            data-separator-notes="^Note:"
            data-charset="utf-8">
           </section>
@@ -98,6 +101,7 @@
         dependencies: [
           { src: 'plugin/markdown/marked.js' },
           { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/zoom-js/zoom.js' },
           { src: 'plugin/notes/notes.js', async: true },
           { src: 'plugin/highlight/highlight.js', async: true },
         ]
